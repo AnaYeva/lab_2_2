@@ -18,18 +18,15 @@
         // Destructor
         ~notString() { delete str; }
 
+        notString& operator+=(const notString& rhs);
+        notString& operator+= (char c);
+        notString& operator+= (const char* c);
+
         friend notString operator+(const notString& lhs, const notString& rhs);
         friend notString operator+(const char* c, const notString& rhs);
         friend notString operator+(const notString& lhs, char c);
         friend notString operator+(char c, const notString& lhs);
         friend notString operator+(const notString& lhs, const char* c);
-
-        notString& operator+=(const notString& rhs);
-        notString& operator+= (char c);
-        notString& operator+= (const char* c);
-
-        notString& operator=(const notString& rhs);
-        notString& operator=(const char* rhs);
 
         char& operator[](size_t pos)const;
 
@@ -47,6 +44,9 @@
         friend bool operator > (const notString &, const notString &);
         friend bool operator <= (const notString &, const notString &);
         friend bool operator >= (const notString &, const notString &);
+
+        notString& operator=(const notString& rhs);
+        notString& operator=(const char* rhs);
 
         size_t _find(const char *other, size_t len, size_t pos) const;
         bool _find_compare(const char *other, size_t len, size_t pos) const;

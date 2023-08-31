@@ -44,6 +44,38 @@ notString::notString(notString&& source)
     source.str = nullptr;
 }
 
+//operator +=
+notString& notString::operator+=(const notString& rhs)
+{
+    int length = strlen(str)+ strlen(rhs.str);
+
+    char* buff = new char[length + 1];
+
+    strcpy(buff, str);
+    strcat(buff, rhs.str);
+    buff[length] = '\0';
+    str=buff;
+    return *this;
+}
+notString& notString::operator+= (char c) {
+    int temp =this->length();
+    str[temp]=c;
+    str[temp+1]='\0';
+    return *this;
+}
+notString& notString::operator+= (const char* c) {
+    int length = strlen(this->str)+ strlen(c);
+    char* buff = new char[length + 1];
+
+    strcpy(buff, this->str);
+    strcat(buff, c);
+    buff[length] = '\0';
+
+    str=buff;
+
+    return *this;
+}
+
 //operator +
 notString operator+(const notString& lhs, const notString& rhs)
 {
@@ -99,54 +131,6 @@ notString operator+(const notString& lhs, const char* c) {
     notString temp =lhs;
     temp+=c;
     return temp;
-}
-
-//operator +=
-notString& notString::operator+=(const notString& rhs)
-{
-    int length = strlen(str)+ strlen(rhs.str);
-
-    char* buff = new char[length + 1];
-
-    strcpy(buff, str);
-    strcat(buff, rhs.str);
-    buff[length] = '\0';
-    str=buff;
-    return *this;
-}
-notString& notString::operator+= (char c) {
-    int temp =this->length();
-    str[temp]=c;
-    str[temp+1]='\0';
-    return *this;
-}
-notString& notString::operator+= (const char* c) {
-    int length = strlen(this->str)+ strlen(c);
-    char* buff = new char[length + 1];
-
-    strcpy(buff, this->str);
-    strcat(buff, c);
-    buff[length] = '\0';
-
-    str=buff;
-
-    return *this;
-}
-
-//operator =
-notString& notString::operator= (const char* c) {
-    strcpy(str, c);
-    return *this;
-}
-
-notString& notString::operator=(const notString& rhs)
-{
-    if (this == &rhs)
-        return *this;
-    delete[] str;
-    str = new char[strlen(rhs.str) + 1];
-    strcpy(str, rhs.str);
-    return *this;
 }
 
 //input and output operators
@@ -205,6 +189,22 @@ bool operator <= (const notString & lhs, const notString & rhs) {
 }
 bool operator >= (const notString & lhs, const notString & rhs) {
     return lhs.compare(rhs) <= 0;
+}
+
+//operator =
+notString& notString::operator= (const char* c) {
+    strcpy(str, c);
+    return *this;
+}
+
+notString& notString::operator=(const notString& rhs)
+{
+    if (this == &rhs)
+        return *this;
+    delete[] str;
+    str = new char[strlen(rhs.str) + 1];
+    strcpy(str, rhs.str);
+    return *this;
 }
 
 //find function
